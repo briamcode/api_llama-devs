@@ -77,6 +77,8 @@ Endpoint Principal
 
 Ejemplo de Cuerpo de Solicitud:
 
+```json
+
 {
   "name": "Juan",
   "age": 8,
@@ -84,6 +86,7 @@ Ejemplo de Cuerpo de Solicitud:
   "question": "¿Qué es una red neuronal?"
 }
 
+```
 Ejemplo de Respuesta:
 
 {
@@ -103,6 +106,70 @@ FastAPI genera automáticamente documentación para los endpoints:
     ReDoc: http://localhost:8000/redoc
 
    
+![fastapi documentacion](assets/fastapi1.png)
+
+
+# upload
+Para alimentar el RAG con documentos pdf se debe usar el endpoint POST /upload/
+Este es un endpoint de tipo POST que permite subir un archivo a la API. El propósito de este endpoint es subir archivos PDF o TXT para procesar y vectorizar su contenido.
+![fastapi documentacion](assets/fastapi2.png)
+Parámetros de Entrada
+
+  replace (Query Parameter):
+        Tipo: boolean (opcional).
+        Descripción: Indica si se debe reemplazar un archivo existente.
+            Si se establece en true, el archivo que ya existe será reemplazado por el nuevo archivo subido.
+            Si se deja como false (valor predeterminado), no se reemplazará ningún archivo existente.
+
+  file (Request Body):
+        Tipo: multipart/form-data (requerido).
+        Es obligatorio proporcionar un archivo en la solicitud.
+        Este archivo debe ser un PDF o TXT.
+        Campo: Se selecciona el archivo desde tu sistema local a través del botón "Browse".
+
+Cuerpo de Solicitud (Request Body)
+
+  file (obligatorio):
+  Este campo permite subir el archivo que será procesado por la API. Es requerido para que la solicitud sea válida. El campo se muestra en el formato multipart/form-data, lo que significa que soporta la carga de archivos binarios.
+
+
+
+# query
+POST /query/ Este endpoint es de tipo POST, lo que indica que se envían datos desde el cliente hacia el servidor en el cuerpo de la solicitud. Su objetivo es recibir los datos del usuario (nombre, edad, estilo de aprendizaje) y una pregunta, para generar una respuesta personalizada basada en esos datos y los documentos almacenados en la base de datos vectorial.
+![fastapi documentacion](assets/fastapi3.png)
+
+Cuerpo de la Solicitud (Request Body)
+
+El cuerpo de la solicitud debe enviarse en formato JSON, con los siguientes campos requeridos:
+Estructura del JSON:
+
+```json
+{
+  "name": "camila",
+  "age": 10,
+  "learning_style": "auditivo",
+  "question": "de que se trata la inteligencia artificial?"
+}
+```
+
+Después de ejecutar la solicitud, el servidor devuelve una respuesta que puede incluir:
+
+  La respuesta personalizada generada por el modelo:
+  Por ejemplo:
+
+```json
+{
+  "answer": "La inteligencia artificial es una forma en la que las máquinas pueden aprender y realizar tareas que usualmente hacen los humanos, como entender palabras o imágenes.",
+  "sources": ["source1.pdf", "source2.pdf"]
+}
+
+```
+answer: Es la respuesta generada por el modelo, adaptada a los datos del usuario y su pregunta.
+sources: Lista de documentos (o archivos) utilizados para construir la respuesta.
+
+
+
+
 
 
 
