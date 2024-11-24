@@ -51,7 +51,9 @@ Dentro de la carpeta app, instala las dependencias listadas en requirements.txt:
 pip install -r requirements.txt
 ```
 
-4. Configurar Variables de Entorno
+
+
+4. Configurar Variables de Entorno (OPCIONAL no necesario para entorno de dersarrollo solo para produccion)
 
 Crea un archivo .env en la raíz del proyecto con las siguientes variables:
 
