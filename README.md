@@ -95,11 +95,14 @@ Ejemplo de Respuesta:
 
 📖 Documentación Interactiva
 
+ ![fastapi](assets/fastapi.png)
+
 FastAPI genera automáticamente documentación para los endpoints:
 
     Swagger UI: http://localhost:8000/docs
     ReDoc: http://localhost:8000/redoc
 
+   
 
 
 
